@@ -4,17 +4,18 @@
  * ISU
  * This program will provide information to the user then quizzes them
  */
+
+// answer key: Q1: 2, Q2: 1, Q3: 1, Q4: 3, Q5: 2, Q6: 4, Q7: 1, Q8: 3, Q9: 2, Q10: 4, Q11: 2, Q12: 1
 import java.util.Scanner;
-import java.text.NumberFormat;
-import java.util.Timer;
 
 public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
 
-        int menuSelect = 1;
+        int menuSelect = 1, scoreAccum, ansCorrect, ansIncorr1, ansIncorr2, ansIncorr3, countdownNum, currHighscore = 0;
+        final int NUM_OF_QUESTIONS = 12;
         long elapsedTime, currentTime;
-        boolean checkIfLearn = false, newHighscore = false;
+        boolean checkIfLearn = false;
 
         System.out.println(" ____      ____  ________  _____       ______    ___   ____    ____  ________  ");
         System.out.println("|_  _|    |_  _||_   __  ||_   _|    .' ___  | .'   `.|_   \\  /   _||_   __  | ");
@@ -27,12 +28,9 @@ public class Main {
         currentTime = System.currentTimeMillis();
 
         // create a timer that displays welcome for 3 seconds before entering the program
-        while(true){
+        do {
             elapsedTime = (System.currentTimeMillis() - currentTime) / 1000;
-            if(elapsedTime > 3){
-                break;
-            }
-        }
+        } while (elapsedTime <= 3);
 
         // display default menu
         do {
@@ -197,9 +195,16 @@ public class Main {
                             // did they access the learning centre? if not, provide a prompt
                             if(checkIfLearn == false){
                                 do {
-                                    System.out.println("Hey! I noticed that you haven't accessed the learning centre! Would you like to go back?");
+                                    System.out.println("********************************************************************************************\n");
+                                    System.out.println("Hey! I noticed that you haven't accessed the learning centre! Would you like to go back?\n");
                                     System.out.println("1. Yes, go back  ||  2. No, let me quiz myself");
-                                    menuSelect = input.nextInt();
+                                    System.out.print("Enter input here: ");
+                                    do {
+                                        menuSelect = input.nextInt();
+                                        if (menuSelect < 1 || menuSelect > 2){
+                                            System.out.print("Please enter a valid number: ");
+                                        }
+                                    } while(menuSelect < 1 || menuSelect > 2);
 
                                     if(menuSelect == 2){
                                         checkIfLearn = true;
@@ -213,11 +218,332 @@ public class Main {
                             // break them out of the while loop to go back if they would like to go back, otherwise continue quiz
                             // will not check expression if user already learned "something"
                             if(checkIfLearn == false){
+                                System.out.println("\n");
                                 break;
                             }
 
-                            menuSelect = input.nextInt();
+                            // reset variables
+                            scoreAccum = 0;
+
+                            System.out.println("\n");
+
+                            // Question 1
+                            System.out.println("***********************************************************************\n");
+                            System.out.println("Question 1: What type of RAM is typically desired?\n");
+                            System.out.format("%-16s %-16s", "1. High Amounts", "3. RGB Lighting\n");
+                            System.out.format("%-16s %-16s", "2. Fast", "4. Hard Drives\n\n");
+                            System.out.print("Enter your answer here: ");
+                            ansCorrect = 2; // set correct answer here
+                            ansIncorr1 = 1; ansIncorr2 = 3; ansIncorr3 = 4; // set incorrect answers here
+                            do {
+                                menuSelect = input.nextInt();
+
+                                if (menuSelect == ansCorrect) { // is answer right? if so, increase score and output that they got it correct
+                                    scoreAccum++;
+                                    System.out.println("Correct!\n");
+                                } else if (menuSelect == ansIncorr1 || menuSelect == ansIncorr2 || menuSelect == ansIncorr3) { // is answer wrong? if so, output they are wrong and display correct answer
+                                    System.out.println("Incorrect! The desired type of RAM is fast RAM.\n");
+                                } else {
+                                    System.out.print("Please input a valid number: ");
+                                }
+                            } while(menuSelect < 1 || menuSelect > 4);
+                            menuSelect = -1;
+
+                            // Question 2
+                            System.out.println("***********************************************************************\n");
+                            System.out.println("Question 2: What does the RAM do?\n");
+                            System.out.format("%-40s %-23s", "1. Serves as a temporary storage area", "3. Turns on the monitor\n");
+                            System.out.format("%-40s %-21s", "2. Accesses the BIOS", "4. Controls the CPU\n\n");
+                            System.out.print("Enter your answer here: ");
+                            ansCorrect = 1; // set correct answer here
+                            ansIncorr1 = 2; ansIncorr2 = 3; ansIncorr3 = 4; // set incorrect answers here
+                            do {
+                                menuSelect = input.nextInt();
+
+                                if (menuSelect == ansCorrect) { // is answer right? if so, increase score and output that they got it correct
+                                    scoreAccum++;
+                                    System.out.println("Correct!\n");
+                                } else if (menuSelect == ansIncorr1 || menuSelect == ansIncorr2 || menuSelect == ansIncorr3) { // is answer wrong? if so, output they are wrong and display correct answer
+                                    System.out.println("Incorrect! The purpose of the RAM is to serve as a temporary storage area.\n");
+                                } else {
+                                    System.out.print("Please input a valid number: ");
+                                }
+                            } while(menuSelect < 1 || menuSelect > 4);
+                            menuSelect = -1;
+
+                            // Question 3
+                            System.out.println("***********************************************************************\n");
+                            System.out.println("Question 3: What is a major benefit of using a hard disk?\n");
+                            System.out.format("%-40s %-27s", "1. Rewriting and removing information", "3. Matches speed of the CPU\n");
+                            System.out.format("%-40s %-34s", "2. Easy to clean", "4. Ability to be downloaded online\n\n");
+                            System.out.print("Enter your answer here: ");
+                            ansCorrect = 1; // set correct answer here
+                            ansIncorr1 = 2; ansIncorr2 = 3; ansIncorr3 = 4; // set incorrect answers here
+                            do {
+                                menuSelect = input.nextInt();
+
+                                if (menuSelect == ansCorrect) { // is answer right? if so, increase score and output that they got it correct
+                                    scoreAccum++;
+                                    System.out.println("Correct!\n");
+                                } else if (menuSelect == ansIncorr1 || menuSelect == ansIncorr2 || menuSelect == ansIncorr3) { // is answer wrong? if so, output they are wrong and display correct answer
+                                    System.out.println("Incorrect! A major benefit of using a hard disk is the ability to rewrite and remove information on it.\n");
+                                } else {
+                                    System.out.print("Please input a valid number: ");
+                                }
+                            } while(menuSelect < 1 || menuSelect > 4);
+                            menuSelect = -1;
+
+                            // Question 4
+                            System.out.println("***********************************************************************\n");
+                            System.out.println("Question 4: What is found inside of a hard disk?\n");
+                            System.out.format("%-25s %-16s", "1. Hands and Arm", "3. Platters and Arm\n");
+                            System.out.format("%-25s %-18s", "2. PCB and Transistors", "4. Lasers and Sensors\n\n");
+                            System.out.print("Enter your answer here: ");
+                            ansCorrect = 3; // set correct answer here
+                            ansIncorr1 = 1; ansIncorr2 = 2; ansIncorr3 = 4; // set incorrect answers here
+                            do {
+                                menuSelect = input.nextInt();
+
+                                if (menuSelect == ansCorrect) { // is answer right? if so, increase score and output that they got it correct
+                                    scoreAccum++;
+                                    System.out.println("Correct!\n");
+                                } else if (menuSelect == ansIncorr1 || menuSelect == ansIncorr2 || menuSelect == ansIncorr3) { // is answer wrong? if so, output they are wrong and display correct answer
+                                    System.out.println("Incorrect! A platter(s) and an arm can be found inside of a hard disk.\n");
+                                } else {
+                                    System.out.print("Please input a valid number: ");
+                                }
+                            } while(menuSelect < 1 || menuSelect > 4);
+                            menuSelect = -1;
+
+                            // Question 5
+                            System.out.println("***********************************************************************\n");
+                            System.out.println("Question 5: How is data represented in a CD?\n");
+                            System.out.format("%-23s %-15s", "1. Colours and Paint", "3. Ink and Opacity\n");
+                            System.out.format("%-23s %-18s", "2. Bumps and Pits", "4. Light and Darkness\n\n");
+                            System.out.print("Enter your answer here: ");
+                            ansCorrect = 2; // set correct answer here
+                            ansIncorr1 = 1; ansIncorr2 = 3; ansIncorr3 = 4; // set incorrect answers here
+                            do {
+                                menuSelect = input.nextInt();
+
+                                if (menuSelect == ansCorrect) { // is answer right? if so, increase score and output that they got it correct
+                                    scoreAccum++;
+                                    System.out.println("Correct!\n");
+                                } else if (menuSelect == ansIncorr1 || menuSelect == ansIncorr2 || menuSelect == ansIncorr3) { // is answer wrong? if so, output they are wrong and display correct answer
+                                    System.out.println("Incorrect! Bumps and pits represent data in a CD as they represent ones and zeroes.\n");
+                                } else {
+                                    System.out.print("Please input a valid number: ");
+                                }
+                            } while(menuSelect < 1 || menuSelect > 4);
+                            menuSelect = -1;
+
+                            // Question 6
+                            System.out.println("***********************************************************************\n");
+                            System.out.println("Question 6: What material in a CD is engraved with the little bumps?\n");
+                            System.out.format("%-16s %-8s", "1. Plastic", "3. Label\n");
+                            System.out.format("%-16s %-10s", "2. Aluminum", "4. Acrylic\n\n");
+                            System.out.print("Enter your answer here: ");
+                            ansCorrect = 4; // set correct answer here
+                            ansIncorr1 = 1; ansIncorr2 = 2; ansIncorr3 = 3; // set incorrect answers here
+                            do {
+                                menuSelect = input.nextInt();
+
+                                if (menuSelect == ansCorrect) { // is answer right? if so, increase score and output that they got it correct
+                                    scoreAccum++;
+                                    System.out.println("Correct!\n");
+                                } else if (menuSelect == ansIncorr1 || menuSelect == ansIncorr2 || menuSelect == ansIncorr3) { // is answer wrong? if so, output they are wrong and display correct answer
+                                    System.out.println("Incorrect! Acrylic is the material that is engraved with little bumps in a CD.\n");
+                                } else {
+                                    System.out.print("Please input a valid number: ");
+                                }
+                            } while(menuSelect < 1 || menuSelect > 4);
+                            menuSelect = -1;
+
+                            // Question 7
+                            System.out.println("***********************************************************************\n");
+                            System.out.println("Question 7: What is the most important role of the BIOS?\n");
+                            System.out.format("%-21s %-14s", "1. Load the OS", "3. Check the CMOS\n");
+                            System.out.format("%-21s %-23s", "2. Turn on the GPU", "4. Switch the system clock\n\n");
+                            System.out.print("Enter your answer here: ");
+                            ansCorrect = 1; // set correct answer here
+                            ansIncorr1 = 2; ansIncorr2 = 3; ansIncorr3 = 4; // set incorrect answers here
+                            do {
+                                menuSelect = input.nextInt();
+
+                                if (menuSelect == ansCorrect) { // is answer right? if so, increase score and output that they got it correct
+                                    scoreAccum++;
+                                    System.out.println("Correct!\n");
+                                } else if (menuSelect == ansIncorr1 || menuSelect == ansIncorr2 || menuSelect == ansIncorr3) { // is answer wrong? if so, output they are wrong and display correct answer
+                                    System.out.println("Incorrect! The most important job of the BIOS is to load in the operating system.\n");
+                                } else {
+                                    System.out.print("Please input a valid number: ");
+                                }
+                            } while(menuSelect < 1 || menuSelect > 4);
+                            menuSelect = -1;
+
+                            // Question 8
+                            System.out.println("***********************************************************************\n");
+                            System.out.println("Question 8: The BIOS checks on the _________ first on boot up.\n");
+                            System.out.format("%-9s %-7s", "1. CPU", "3. CMOS\n");
+                            System.out.format("%-9s %-6s", "2. CD", "4. CNC\n\n");
+                            System.out.print("Enter your answer here: ");
+                            ansCorrect = 3; // set correct answer here
+                            ansIncorr1 = 1; ansIncorr2 = 2; ansIncorr3 = 4; // set incorrect answers here
+                            do {
+                                menuSelect = input.nextInt();
+
+                                if (menuSelect == ansCorrect) { // is answer right? if so, increase score and output that they got it correct
+                                    scoreAccum++;
+                                    System.out.println("Correct!\n");
+                                } else if (menuSelect == ansIncorr1 || menuSelect == ansIncorr2 || menuSelect == ansIncorr3) { // is answer wrong? if so, output they are wrong and display correct answer
+                                    System.out.println("Incorrect! The BIOS always checks on the CMOS first.\n");
+                                } else {
+                                    System.out.print("Please input a valid number: ");
+                                }
+                            } while(menuSelect < 1 || menuSelect > 4);
+                            menuSelect = -1;
+
+                            // Question 9
+                            System.out.println("***********************************************************************\n");
+                            System.out.println("Question 9: How are bumps and pits created on a CD?\n");
+                            System.out.format("%-47s %-36s", "1. Using a high-powered laser", "3. A CD does not have bumps and pits\n");
+                            System.out.format("%-47s %-20s", "2. Engraved glass plate pressed onto acrylic", "4. Dye is sprayed on\n\n");
+                            System.out.print("Enter your answer here: ");
+                            ansCorrect = 2; // set correct answer here
+                            ansIncorr1 = 1; ansIncorr2 = 3; ansIncorr3 = 4; // set incorrect answers here
+                            do {
+                                menuSelect = input.nextInt();
+
+                                if (menuSelect == ansCorrect) { // is answer right? if so, increase score and output that they got it correct
+                                    scoreAccum++;
+                                    System.out.println("Correct!\n");
+                                } else if (menuSelect == ansIncorr1 || menuSelect == ansIncorr2 || menuSelect == ansIncorr3) { // is answer wrong? if so, output they are wrong and display correct answer
+                                    System.out.println("Incorrect! Bumps and pits are formed when an already engraved glass plate is pressed onto acrylic material.\n");
+                                } else {
+                                    System.out.print("Please input a valid number: ");
+                                }
+                            } while(menuSelect < 1 || menuSelect > 4);
+                            menuSelect = -1;
+
+                            // Question 10
+                            System.out.println("***********************************************************************\n");
+                            System.out.println("Question 10: How are CDs and CD-Rs different?\n");
+                            System.out.format("%-33s %-29s", "1. CDs are not made of plastic", "3. CDs spin faster than CD-Rs\n");
+                            System.out.format("%-33s %-27s", "2. CD-Rs have bumps and pits", "4. CD-Rs use a dye material\n\n");
+                            System.out.print("Enter your answer here: ");
+                            ansCorrect = 4; // set correct answer here
+                            ansIncorr1 = 1; ansIncorr2 = 2; ansIncorr3 = 3; // set incorrect answers here
+                            do {
+                                menuSelect = input.nextInt();
+
+                                if (menuSelect == ansCorrect) { // is answer right? if so, increase score and output that they got it correct
+                                    scoreAccum++;
+                                    System.out.println("Correct!\n");
+                                } else if (menuSelect == ansIncorr1 || menuSelect == ansIncorr2 || menuSelect == ansIncorr3) { // is answer wrong? if so, output they are wrong and display correct answer
+                                    System.out.println("Incorrect! CD-Rs use a dye material compared to CDs which use bumps and pits.\n");
+                                } else {
+                                    System.out.print("Please input a valid number: ");
+                                }
+                            } while(menuSelect < 1 || menuSelect > 4);
+                            menuSelect = -1;
+
+                            // Question 11
+                            System.out.println("***********************************************************************\n");
+                            System.out.println("Question 11: Why do some games lack in quality?\n");
+                            System.out.format("%-31s %-31s", "1. Player-bases are children", "3. Companies fire their workers\n");
+                            System.out.format("%-31s %-40s", "2. Companies rush their work", "4. Games are sold on the wrong platforms\n\n");
+                            System.out.print("Enter your answer here: ");
+                            ansCorrect = 2; // set correct answer here
+                            ansIncorr1 = 1; ansIncorr2 = 3; ansIncorr3 = 4; // set incorrect answers here
+                            do {
+                                menuSelect = input.nextInt();
+
+                                if (menuSelect == ansCorrect) { // is answer right? if so, increase score and output that they got it correct
+                                    scoreAccum++;
+                                    System.out.println("Correct!\n");
+                                } else if (menuSelect == ansIncorr1 || menuSelect == ansIncorr2 || menuSelect == ansIncorr3) { // is answer wrong? if so, output they are wrong and display correct answer
+                                    System.out.println("Incorrect! Gaming companies tend to rush their work to publish a game as soon as possible.\n");
+                                } else {
+                                    System.out.print("Please input a valid number: ");
+                                }
+                            } while(menuSelect < 1 || menuSelect > 4);
+                            menuSelect = -1;
+
+                            // Question 12
+                            System.out.println("***********************************************************************\n");
+                            System.out.println("Question 12: What game is expected to do well on release?\n");
+                            System.out.format("%-22s %-21s", "1. Counter-Strike 2", "3. Call of Duty: MWII\n");
+                            System.out.format("%-22s %-19s", "2. Overwatch 2", "4. Battlefield 2042\n\n");
+                            System.out.print("Enter your answer here: ");
+                            ansCorrect = 1; // set correct answer here
+                            ansIncorr1 = 2; ansIncorr2 = 3; ansIncorr3 = 4; // set incorrect answers here
+                            do {
+                                menuSelect = input.nextInt();
+
+                                if (menuSelect == ansCorrect) { // is answer right? if so, increase score and output that they got it correct
+                                    scoreAccum++;
+                                    System.out.println("Correct!\n");
+                                } else if (menuSelect == ansIncorr1 || menuSelect == ansIncorr2 || menuSelect == ansIncorr3) { // is answer wrong? if so, output they are wrong and display correct answer
+                                    System.out.println("Incorrect! Counter-Strike 2, yet to be released, has high hopes amongst fans.\n");
+                                } else {
+                                    System.out.print("Please input a valid number: ");
+                                }
+                            } while(menuSelect < 1 || menuSelect > 4);
+                            menuSelect = -1;
+
+                            // countdown to reveal highscore OR show perfect score
+                            countdownNum = 3;
+                            currentTime = System.currentTimeMillis();
+                            if(scoreAccum > currHighscore) {
+                                do {
+                                    elapsedTime = (System.currentTimeMillis() - currentTime) / 1000;
+                                    if (elapsedTime == 1) {
+                                        System.out.println(countdownNum);
+                                        countdownNum--;
+                                        currentTime = System.currentTimeMillis();
+                                    }
+                                } while (countdownNum > -1);
+
+                                currHighscore = scoreAccum; // ensure we have a new highscore saved so the next person can try to take over highscore
+                                System.out.println(" ____  _____  ________  ____      ____   ____  ____  _____   ______  ____  ____   ______     ______    ___   _______     ________  ");
+                                System.out.println("|_   \\|_   _||_   __  ||_  _|    |_  _| |_   ||   _||_   _|.' ___  ||_   ||   _|.' ____ \\  .' ___  | .'   `.|_   __ \\   |_   __  | ");
+                                System.out.println("  |   \\ | |    | |_ \\_|  \\ \\  /\\  / /     | |__| |    | | / .'   \\_|  | |__| |  | (___ \\_|/ .'   \\_|/  .-.  \\ | |__) |    | |_ \\_| ");
+                                System.out.println("  | |\\ \\| |    |  _| _    \\ \\/  \\/ /      |  __  |    | | | |   ____  |  __  |   _.____`. | |       | |   | | |  __ /     |  _| _  ");
+                                System.out.println(" _| |_\\   |_  _| |__/ |    \\  /\\  /      _| |  | |_  _| |_\\ `.___]  |_| |  | |_ | \\____) |\\ `.___.'\\\\  `-'  /_| |  \\ \\_  _| |__/ | ");
+                                System.out.println("|_____|\\____||________|     \\/  \\/      |____||____||_____|`._____.'|____||____| \\______.' `.____ .' `.___.'|____| |___||________| \n");
+
+                                // if player got a perfect score, reward them with a trophy
+                                if(scoreAccum == NUM_OF_QUESTIONS){
+                                    System.out.println("  ___________");
+                                    System.out.println(" '._==_==_=_.'");
+                                    System.out.println(" .-\\:      /-.");
+                                    System.out.println("| (|:.     |) |");
+                                    System.out.println(" '-|:.  1  |-'");
+                                    System.out.println("   \\::.    /");
+                                    System.out.println("    '::. .'");
+                                    System.out.println("      ) (");
+                                    System.out.println("    _.' '._");
+                                    System.out.println("   `\"\"\"\"\"\"\"`");
+                                    System.out.println("Congratulations on a perfect score!\n");
+                                }
+                            }
+
+                            System.out.println("You have obtained a score of " + scoreAccum + "/" + NUM_OF_QUESTIONS + "!\n");
+                            System.out.println("Would you like to test your knowledge again?");
+                            System.out.println("1. No thank you, go back  ||  2. Yes, please!\n");
+                            System.out.print("Enter your input here: ");
+
+                            // if they do not enter a 1 or 2, continuing prompting them.
+                            do {
+                                menuSelect = input.nextInt();
+                                if(menuSelect < 1 || menuSelect > 2){
+                                    System.out.print("Please enter a valid number: ");
+                                }
+                            } while(menuSelect < 1 || menuSelect > 2);
+
                         } while(menuSelect != 1);
+                        menuSelect = -1;
+
                     }
                 } while(menuSelect != 3);
                 menuSelect = -1;
