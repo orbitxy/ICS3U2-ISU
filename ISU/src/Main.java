@@ -13,13 +13,24 @@ public class Main {
         Scanner input = new Scanner(System.in);
         // quiz variables
         int menuSelect = 1, numQuesCorrect, points = 0, ansCorrect, ansIncorr1, ansIncorr2, ansIncorr3, countdownNum, currHighscore = 0;
+        boolean checkIfLearn = false;
+        final int NUM_OF_QUESTIONS = 12;
+
+        // guess the number variables
+        int playerChoiceGTM, programChoice, timesGuessed;
 
         // blackjack variables
-        int playerChoice, programChoice, timesGuessed;
+        int playerChoiceBJ, playerCardSum = 0, programCardSum = 0, futureProgramCardSum;
+        boolean stand, overshot;
 
-        final int NUM_OF_QUESTIONS = 12;
+        // shop variables
+        int chocolate = 0, sticker = 0, cards = 0, nerfGun = 0, bike = 0, aStick = 0;
+        final int CHOCOLATE_PRICE = 10, STICKER_PRICE = 25, CARDS_PRICE = 50, NERF_GUN_PRICE = 100, BIKE_PRICE = 500, A_STICK_PRICE = 1000;
+
+        // time variables
         long elapsedTime, currentTime;
-        boolean checkIfLearn = false;
+
+
 
         System.out.println(" ____      ____  ________  _____       ______    ___   ____    ____  ________  ");
         System.out.println("|_  _|    |_  _||_   __  ||_   _|    .' ___  | .'   `.|_   \\  /   _||_   __  | ");
@@ -58,7 +69,8 @@ public class Main {
                     System.out.println("* 2. Quiz yourself         *");
                     System.out.println("* 3. Point Shop            *");
                     System.out.println("* 4. More Games            *");
-                    System.out.println("* 5. Back                  *");
+                    System.out.println("* 5. Inventory             *");
+                    System.out.println("* 6. Back                  *");
                     System.out.println("****************************\n");
 
                     System.out.print("What would you like to do? (Select number): ");
@@ -577,7 +589,92 @@ public class Main {
 
                     } else if (menuSelect == 3){
                         // point shop
+                        System.out.println("*************************************************************************************************");
                         System.out.println("Welcome to the point shop! Feel free to purchase anything! (If you have the points to do so...)\n");
+                        System.out.format("%-14s %-12s %-5s", "Item Select", "Item", "Price\n");
+                        System.out.format("%-14s %-12s %-2s", "1", "Chocolate", "10\n");
+                        System.out.format("%-14s %-12s %-2s", "2", "Sticker", "25\n");
+                        System.out.format("%-14s %-12s %-2s", "3", "Cards", "50\n");
+                        System.out.format("%-14s %-12s %-3s", "4", "Nerf Gun", "100\n");
+                        System.out.format("%-14s %-12s %-3s", "5", "Bike", "500\n");
+                        System.out.format("%-14s %-12s %-4s", "6", "A stick", "1000\n\n");
+                        System.out.println("You have " + points + " points to spend!");
+
+                        do {
+                            System.out.print("What would you like to purchase? (Enter 7 to exit): ");
+                            menuSelect = input.nextInt();
+                            if(menuSelect == 1){
+                                if(points >= CHOCOLATE_PRICE){
+                                    points = points - CHOCOLATE_PRICE;
+                                    chocolate++;
+                                    System.out.println(" ");
+                                    System.out.println("Successful purchase!");
+                                    System.out.println("You now have " + points + " points remaining!\n");
+                                } else {
+                                    System.out.println(" ");
+                                    System.out.println("Insufficient points!\n");
+                                }
+                            } else if(menuSelect == 2){
+                                if(points >= STICKER_PRICE){
+                                    points = points - STICKER_PRICE;
+                                    sticker++;
+                                    System.out.println(" ");
+                                    System.out.println("Successful purchase!");
+                                    System.out.println("You now have " + points + " points remaining!\n");
+                                } else {
+                                    System.out.println(" ");
+                                    System.out.println("Insufficient points!\n");
+                                }
+                            } else if(menuSelect == 3){
+                                if(points >= CARDS_PRICE){
+                                    points = points - CARDS_PRICE;
+                                    cards++;
+                                    System.out.println(" ");
+                                    System.out.println("Successful purchase!");
+                                    System.out.println("You now have " + points + " points remaining!\n");
+                                } else {
+                                    System.out.println(" ");
+                                    System.out.println("Insufficient points!\n");
+                                }
+                            } else if(menuSelect == 4){
+                                if(points >= NERF_GUN_PRICE){
+                                    points = points - NERF_GUN_PRICE;
+                                    nerfGun++;
+                                    System.out.println(" ");
+                                    System.out.println("Successful purchase!");
+                                    System.out.println("You now have " + points + " points remaining!\n");
+                                } else {
+                                    System.out.println(" ");
+                                    System.out.println("Insufficient points!\n");
+                                }
+                            } else if(menuSelect == 5){
+                                if(points >= BIKE_PRICE){
+                                    points = points - BIKE_PRICE;
+                                    bike++;
+                                    System.out.println(" ");
+                                    System.out.println("Successful purchase!");
+                                    System.out.println("You now have " + points + " points remaining!\n");
+                                } else {
+                                    System.out.println(" ");
+                                    System.out.println("Insufficient points!\n");
+                                }
+                            } else if(menuSelect == 6){
+                                if(points >= A_STICK_PRICE){
+                                    points = points - A_STICK_PRICE;
+                                    aStick++;
+                                    System.out.println(" ");
+                                    System.out.println("Successful purchase!");
+                                    System.out.println("You now have " + points + " points remaining!\n");
+                                    System.out.println("FYI: I think you've been playing too long.\n");
+                                } else {
+                                    System.out.println(" ");
+                                    System.out.println("Insufficient points!\n");
+                                }
+                            }
+                        } while (menuSelect != 7);
+                        menuSelect = -1;
+
+                        System.out.println("\n\n");
 
                     } else if(menuSelect == 4){
                         // more games menu
@@ -585,8 +682,7 @@ public class Main {
                             System.out.println("************************************");
                             System.out.println("* 1. Guess my number!              *");
                             System.out.println("* 2. Blackjack                     *");
-                            System.out.println("* 3. Shadow Boxing                 *");
-                            System.out.println("* 4. Back                          *");
+                            System.out.println("* 3. Back                          *");
                             System.out.println("************************************\n");
 
                             System.out.print("What would you like to do? (Select number): ");
@@ -598,7 +694,7 @@ public class Main {
                                     System.out.println("***************************************************************************************");
                                     System.out.println("How to play: The computer picks a number between 1-20. The user must guess its number ");
                                     System.out.println("in 5 tries. Hints will be provided each time.");
-                                    System.out.println("WIN: 100% profit. LOSE: 50% lost.\n");
+                                    System.out.println("WIN: Points are doubled. LOSE: Points cut in half.\n");
                                     System.out.println("1. Go back || 2. Let's play!");
                                     System.out.print("Enter your input here: ");
                                     do {
@@ -608,10 +704,10 @@ public class Main {
                                         }
                                     } while (menuSelect < 1 || menuSelect > 2);
                                     if (menuSelect == 1) {
+                                        System.out.println("\n");
                                         break; // get out of while loop
                                     }
 
-                                    menuSelect = -1;
                                     System.out.println("\n\n");
 
                                     programChoice = (int) ((20 - 1 + 1) * Math.random() + 1); // randomize number
@@ -621,11 +717,12 @@ public class Main {
                                         System.out.println("***************************************************************************************");
                                         System.out.println("Guesses remaining: " + timesGuessed);
                                         System.out.print("Enter your number: ");
-                                        playerChoice = input.nextInt();
-                                        if (playerChoice > programChoice) {
+                                        playerChoiceGTM = input.nextInt();
+
+                                        if (playerChoiceGTM > programChoice) {
                                             System.out.println("Too high!\n");
                                             timesGuessed--;
-                                        } else if (playerChoice < programChoice) {
+                                        } else if (playerChoiceGTM < programChoice) {
                                             System.out.println("Too low!\n");
                                             timesGuessed--;
                                         } else {
@@ -638,9 +735,10 @@ public class Main {
                                             points /= 2;
                                             break;
                                         }
-                                    } while (playerChoice != programChoice);
+                                    } while (playerChoiceGTM != programChoice);
 
                                     System.out.println("\n");
+                                    System.out.println("***************************************************************************************");
                                     System.out.println("The number was " + programChoice + "!");
                                     System.out.println("You have " + points + " points!\n");
 
@@ -653,13 +751,262 @@ public class Main {
                                             System.out.print("Please enter a valid number: ");
                                         }
                                     } while (menuSelect < 1 || menuSelect > 2);
+
+                                    System.out.println("\n");
                                 } while (menuSelect != 1);
+                                menuSelect = -1;
+
+                            } else if (menuSelect == 2){
+                                do {
+                                    // play blackjack
+                                    System.out.println("***************************************************************************************");
+                                    System.out.println("How to play: The user has two options, to HIT or STAND. The hit action gives a card");
+                                    System.out.println("between 1-10. The stand option means to decline any further given cards. The user must");
+                                    System.out.println("try to reach a sum of 21, or have a higher sum than the program after the stand action.");
+                                    System.out.println("WIN: Points are doubled. LOSE: Points cut in half.\n");
+                                    System.out.println("1. Go back || 2. Let's play!");
+                                    System.out.print("Enter your input here: ");
+                                    do {
+                                        menuSelect = input.nextInt();
+                                        if (menuSelect < 1 || menuSelect > 2) {
+                                            System.out.print("Please enter a valid number: ");
+                                        }
+                                    } while (menuSelect < 1 || menuSelect > 2);
+                                    if (menuSelect == 1) {
+                                        System.out.println("\n");
+                                        break; // get out of while loop
+                                    }
+
+                                    // grab two random variables and sum them to find card sum for player at the beginning
+                                    playerCardSum = (int)((10 - 1 + 1) * Math.random() + 1);
+                                    playerCardSum += (int)((10 - 1 + 1) * Math.random() + 1);
+
+                                    // grab two random variables and sum them to find card sum for program at the beginning
+                                    programCardSum = (int)((10 - 1 + 1) * Math.random() + 1);
+                                    programCardSum += (int)((10 - 1 + 1) * Math.random() + 1);
+
+                                    // reset variables
+                                    overshot = false;
+                                    stand = false;
+
+                                    System.out.println("\n\n");
+
+                                    do {
+                                        System.out.println("***************************************************************************************");
+                                        System.out.println("Your cards total up to " + playerCardSum + ".");
+                                        System.out.println("Would you like to hit or stand?");
+                                        System.out.println("1. HIT || 2. STAND");
+                                        System.out.print("Enter your input here: ");
+                                        playerChoiceBJ = input.nextInt();
+
+                                        if(playerChoiceBJ < 1 || playerChoiceBJ > 2) {
+                                            do {
+                                                System.out.print("Please input a valid number: ");
+                                                playerChoiceBJ = input.nextInt();
+                                            } while (playerChoiceBJ < 1 || playerChoiceBJ > 2);
+                                        }
+
+                                        if(playerChoiceBJ == 1){
+                                            // if player wants to hit
+                                            playerCardSum += (int)((10 - 1 + 1) * Math.random() + 1);
+                                            System.out.println("You have chosen to hit.");
+                                        } else {
+                                            // if player wants to stand
+                                            stand = true;
+                                            System.out.println("You have chosen to stand.");
+                                        }
+
+                                        futureProgramCardSum = (int)((10 - 1 + 1) * Math.random() + 1);
+
+                                        // prevent dealer from overshooting, guarantees he never loses by overshooting (almost a cheat...)
+                                        if(programCardSum + futureProgramCardSum < 21){
+                                            programCardSum += futureProgramCardSum;
+                                        }
+
+                                        // did player overshoot? if so, end game (tell them after the game for consistency reasons)
+                                        if(playerCardSum > 21){
+                                            overshot = true;
+                                            break;
+                                        }
+
+                                        // did player hit 21? if so, end game (won't allow this expression in the while expression, so making separate break
+                                        // theoretically, player did not overshoot so he did the "stand" action
+                                        if(playerCardSum == 21){
+                                            stand = true;
+                                            break;
+                                        }
+
+                                        System.out.println("\n\n");
+
+                                    } while(playerChoiceBJ != 2);
+
+                                    System.out.println("***************************************************************************************");
+                                    // did he stand? do this
+                                    if(stand == true){
+                                        if(playerCardSum > programCardSum) {
+                                            System.out.println("You win!");
+                                            points *= 2;
+                                        }else if(playerCardSum == programCardSum){
+                                            System.out.println("A tie! No points gained.");
+                                        } else {
+                                            System.out.println("Unfortunately, the dealer had a higher sum.");
+                                            points /= 2;
+                                        }
+                                    }
+
+                                    // did he hit over 21? do this
+                                    if(overshot == true){
+                                        System.out.println("You got higher than 21, so you lost.");
+                                        points /= 2;
+                                    }
+
+                                    // tell user how much they and dealer had
+                                    System.out.println("You had a sum of " + playerCardSum + " while the dealer had " + programCardSum + ".\n");
+
+                                    System.out.println("You have " + points + " points!\n");
+                                    System.out.println("Would you like to play again?");
+                                    System.out.println("1. No || 2. Yes");
+                                    System.out.print("Enter your input here: ");
+                                    do {
+                                        menuSelect = input.nextInt();
+                                        if (menuSelect < 1 || menuSelect > 2) {
+                                            System.out.print("Please enter a valid number: ");
+                                        }
+                                    } while (menuSelect < 1 || menuSelect > 2);
+
+                                    System.out.println("\n");
+
+                                } while(menuSelect != 1);
+                                menuSelect = -1;
                             }
-                        } while(menuSelect != 4);
+
+                        } while(menuSelect != 3);
                         menuSelect = -1;
+
+                    } else if(menuSelect == 5){
+                        // inventory menu
+                        System.out.println("***************************************************************************************");
+                        System.out.println("Welcome to your inventory! Check out how much cool stuff you have!");
+                        System.out.println("Input an item's number to inspect it up close.\n");
+                        System.out.format("%-15s %-7s %-6s", "Item", "Item Name", "Amount\n");
+                        System.out.format("%-1s %-15s %-1s %-1s", "1", "Chocolate(s)", chocolate, "\n");
+                        System.out.format("%-1s %-15s %-1s %-1s", "2", "Sticker(s)", sticker, "\n");
+                        System.out.format("%-1s %-15s %-1s %-1s", "3", "Cards", cards, "\n");
+                        System.out.format("%-1s %-15s %-1s %-1s", "4", "Nerf Gun(s)", nerfGun, "\n");
+                        System.out.format("%-1s %-15s %-1s %-1s", "5", "Bike(s)", bike, "\n");
+                        System.out.format("%-1s %-15s %-1s %-1s", "6", "Stick(s)", aStick, "\n\n");
+
+                        do {
+                            System.out.print("Enter input here (7 to go back): ");
+                            menuSelect = input.nextInt();
+
+                            if(menuSelect == 1){
+                                System.out.println("    __________________,.............,");
+                                System.out.println("   /_/_/_/_/_/_/_/_/,-',  ,. -,-,--/|");
+                                System.out.println("  /_/_/_/_/_/_/_/,-' //  /-| / /--/ /");
+                                System.out.println(" /_/_/_/_/_/_/,-' `-''--'  `' '--/ /");
+                                System.out.println("/_/_/_/_/_/_,:................../ /");
+                                System.out.println("|________,'                   hh|/");
+                                System.out.println("         \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"'\n");
+
+                                do {
+                                    System.out.print("Enter 1 to go back: ");
+                                    menuSelect = input.nextInt();
+                                } while(menuSelect != 1);
+
+                            } else if(menuSelect == 2){
+                                System.out.println("_______________________________");
+                                System.out.println("| _._     _,-'\"\"`-._        |");
+                                System.out.println("|(,-.`._,'(       |\\`-/|     |");
+                                System.out.println("|    `-.-' \\ )-`( , o o)     |");
+                                System.out.println("|          `-    \\`_`\"'-    |");
+                                System.out.println("\\_____________________________/");
+
+                                do{
+                                    System.out.print("Enter 1 to go back: ");
+                                    menuSelect = input.nextInt();
+                                } while(menuSelect != 1);
+
+                            } else if(menuSelect == 3){
+                                System.out.println("          _____");
+                                System.out.println("         |A .  | _____");
+                                System.out.println("         | /.\\ ||A ^  | _____");
+                                System.out.println("         |(_._)|| / \\ ||A _  | _____");
+                                System.out.println("         |  |  || \\ / || ( ) ||A_ _ |");
+                                System.out.println("         |____V||  .  ||(_'_)||( v )|");
+                                System.out.println("                |____V||  |  || \\ / |");
+                                System.out.println("                       |____V||  .  |");
+                                System.out.println("                              |____V|");
+
+                                do{
+                                    System.out.print("Enter 1 to go back: ");
+                                    menuSelect = input.nextInt();
+                                } while(menuSelect != 1);
+
+                            } else if(menuSelect == 4){
+                                System.out.println("      __,_____");
+                                System.out.println("     / __.==--\"");
+                                System.out.println("    /#(-'");
+                                System.out.println("    `-'");
+
+                                do{
+                                    System.out.print("Enter 1 to go back: ");
+                                    menuSelect = input.nextInt();
+                                } while(menuSelect != 1);
+
+                            } else if(menuSelect == 5){
+                                System.out.println("                                          $\"   *.      ");
+                                System.out.println("              d$$$$$$$P\"                  $    J");
+                                System.out.println("                  ^$.                     4r  \"");
+                                System.out.println("                  d\"b                    .db");
+                                System.out.println("                 P   $                  e\" $");
+                                System.out.println("        ..ec.. .\"     *.              zP   $.zec..");
+                                System.out.println("    .^        3*b.     *.           .P\" .@\"4F      \"4");
+                                System.out.println("  .\"         d\"  ^b.    *c        .$\"  d\"   $         %");
+                                System.out.println(" /          P      $.    \"c      d\"   @     3r         3");
+                                System.out.println("4        .eE........$r===e$$$$eeP    J       *..        b");
+                                System.out.println("$       $$$$$       $   4$$$$$$$     F       d$$$.      4");
+                                System.out.println("$       $$$$$       $   4$$$$$$$     L       *$$$\"      4");
+                                System.out.println("4         \"      \"\"3P ===$$$$$$\"     3                  P");
+                                System.out.println(" *                 $       \"\"\"        b                J");
+                                System.out.println("  \".             .P                    %.             @");
+                                System.out.println("    %.         z*\"                      ^%.        .r\"");
+                                System.out.println("       \"*==*\"\"                             ^\"*==*\"\"   ");
+
+                                do{
+                                    System.out.print("Enter 1 to go back: ");
+                                    menuSelect = input.nextInt();
+                                } while(menuSelect != 1);
+
+                            } else if(menuSelect == 6){
+                                System.out.println("                        ████");
+                                System.out.println("                      ██  ██");
+                                System.out.println("                    ██  ██  ");
+                                System.out.println("                  ██  ██    ");
+                                System.out.println("                ██  ██      ");
+                                System.out.println("              ██  ██        ");
+                                System.out.println("            ██  ██          ");
+                                System.out.println("          ██  ██            ");
+                                System.out.println("        ██  ██              ");
+                                System.out.println("      ██  ██                ");
+                                System.out.println("    ██  ██                  ");
+                                System.out.println("  ██  ██                    ");
+                                System.out.println("██  ██                      ");
+                                System.out.println("████                        ");
+
+                                do{
+                                    System.out.print("Enter 1 to go back: ");
+                                    menuSelect = input.nextInt();
+                                } while(menuSelect != 1);
+                            }
+
+                        } while(menuSelect != 7);
+                        menuSelect = -1;
+
+                        System.out.println("\n\n");
                     }
 
-                } while(menuSelect != 5);
+                } while(menuSelect != 6);
                 menuSelect = -1;
 
             } else if(menuSelect == 2){
